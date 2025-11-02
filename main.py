@@ -12,6 +12,8 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     # Initialize player variable
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
     player = Player(x,y)
     
     # Game Logic
@@ -22,12 +24,9 @@ def main():
                 return
         # Fills screen variable with black color
         screen.fill(color=(0,0,0))
-       
         # Player Triangle
-        x = SCREEN_WIDTH / 2
-        y = SCREEN_HEIGHT / 2
         player.draw(screen)
-
+        player.update(dt)
         # This allows for smooth screen refresh - allows for background and foreground data streams to swap - flicker gone
         pygame.display.flip()
 
