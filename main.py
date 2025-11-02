@@ -6,27 +6,33 @@ def main():
     pygame.init
     # setting screen variable and its dimensions for pygame
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    # While Loop
+    # While Loop initializer
     running = True
-    # FPS
+    # FPS and delta time initialization
     clock = pygame.time.Clock()
     dt = 0
-    # Initialize player variable
-    x = SCREEN_WIDTH / 2
-    y = SCREEN_HEIGHT / 2
-    player = Player(x,y)
     
+    # Initialize player variable
+    updatable = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
+    Player.containers = (updatable, drawables)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
     # Game Logic
     while running:
         # This allows for the close button to work in the upper left hand corner
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        updatable.update(dt)
         # Fills screen variable with black color
         screen.fill(color=(0,0,0))
         # Player Triangle
-        player.draw(screen)
-        player.update(dt)
+        
+        for drawable in drawables:
+            drawable.draw(screen)
+        # player.draw(screen)
+        # player.update(dt)
         # This allows for smooth screen refresh - allows for background and foreground data streams to swap - flicker gone
         pygame.display.flip()
 
