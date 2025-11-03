@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import *
@@ -34,6 +35,12 @@ def main():
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
+        # asteriod collision check
+        for asteroid in asteroids:
+            if asteroid.collision_check(player):
+                print("Game Over!")
+                sys.exit()
+        
         # Fills screen variable with black color
         screen.fill(color=(0,0,0))
         # Player Triangle
